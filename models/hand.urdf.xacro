@@ -13,13 +13,13 @@
 
   <!-- Fingers -->
   <xacro:macro name="bhand_finger_1" params="prefix">
-    <xacro:bhand_finger_prox prefix="${prefix}/finger_1" parent_link="${prefix}/bhand_palm_link" xyz="0.025 0.0 0.0415" rpy="0 0 -${PI/2}" axis="0 0 1"/>
+    <xacro:bhand_finger_prox prefix="${prefix}/finger_1" parent_link="${prefix}/bhand_palm_link" xyz="0.025 0.0 0.0415" rpy="0 0 -${PI/2}" axis="0 0 1" use_mimic="false" mimic_joint=""/>
     <xacro:bhand_finger_med prefix="${prefix}/finger_1" parent_link="${prefix}/finger_1/prox_link" xyz="0.05 0.0 0.03390" rpy="${PI/2} 0 0"/>
     <xacro:bhand_finger_dist prefix="${prefix}/finger_1"/>
   </xacro:macro>
 
   <xacro:macro name="bhand_finger_2" params="prefix">
-    <xacro:bhand_finger_prox prefix="${prefix}/finger_2" parent_link="${prefix}/bhand_palm_link" xyz="-0.025 0.0 0.0415" rpy="0 0 -${PI/2}" axis="0 0 -1"/>
+    <xacro:bhand_finger_prox prefix="${prefix}/finger_2" parent_link="${prefix}/bhand_palm_link" xyz="-0.025 0.0 0.0415" rpy="0 0 -${PI/2}" axis="0 0 -1" use_mimic="true" mimic_joint="${prefix}/finger_1/prox_joint"/>
     <xacro:bhand_finger_med prefix="${prefix}/finger_2" parent_link="${prefix}/finger_2/prox_link" xyz="0.05 0.0 0.03390" rpy="${PI/2} 0 0"/>
     <xacro:bhand_finger_dist prefix="${prefix}/finger_2"/>
   </xacro:macro>
@@ -70,14 +70,18 @@
     </link>
   </xacro:macro>
 
-  <xacro:macro name="bhand_finger_prox" params="prefix parent_link xyz rpy axis">
+  <xacro:macro name="bhand_finger_prox" params="prefix parent_link xyz rpy axis use_mimic mimic_joint">
     <joint name="${prefix}/prox_joint" type="revolute">
       <parent link="${parent_link}"/>
       <child link="${prefix}/prox_link"/>
       <origin xyz="${xyz}" rpy="${rpy}"/>
       <axis xyz="${axis}"/>
       <limit effort="5" lower="0" upper="${PI}" velocity="5.0"/>
-      <dynamics damping="1.5" friction="1"/>
+      <dynamics damping="1.5" friction="1"/> 
+      <xacro:if value="${use_mimic}">
+	<mimic joint="${mimic_joint}" multiplier="1.0" offset="0.0" />
+      </xacro:if>
+
     </joint>
     <gazebo reference="${prefix}/prox_joint">
       <xacro:gz_joint/>
