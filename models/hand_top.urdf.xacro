@@ -1,0 +1,15 @@
+<robot 
+  xmlns:xacro="http://www.ros.org/wiki/xacro"
+  xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller">
+
+  <!-- Some macros used by the WAM urdf -->
+  <xacro:include filename="$(find barrett_model)/models/common.urdf.xacro"/>
+  <!-- Definitions for the barrett hand -->
+  <xacro:include filename="$(find barrett_model)/models/hand.urdf.xacro"/>
+
+  <!-- Materials -->
+  <material name="WAMGrey">
+    <color rgba="0.7 0.7 0.7 1.0"/>
+  </material>
+
+</robot>

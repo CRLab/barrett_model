@@ -1,0 +1,11 @@
+<robot name="bhand"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find barrett_model)/models/hand_top.urdf.xacro"/>
+
+  <!-- Root link is in the world frame-->
+  <link name="world"/>
+
+  <!-- BHand -->
+  <xacro:bhand prefix="bhand" parent_link="world" xyz="0.0 0.0 1" rpy="0 0 0"/>
+</robot>
