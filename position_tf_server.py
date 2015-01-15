@@ -7,7 +7,7 @@ from geometry_msgs.msg import Transform, TransformStamped
 pub = None
 robot_pose = TransformStamped()
 robot_pose.child_frame_id = "bhand/bhand_palm_link"
-robot_pose.header.frame_id = "world"
+robot_pose.header.frame_id = "camera_link"
 robot_pose.transform.translation.z = 1
 robot_pose.transform.rotation.w = 1
 

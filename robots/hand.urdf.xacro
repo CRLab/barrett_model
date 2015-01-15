@@ -4,8 +4,8 @@
   <xacro:include filename="$(find barrett_model)/models/hand_top.urdf.xacro"/>
 
   <!-- Root link is in the world frame-->
-  <link name="world"/>
+  <link name="camera_link"/>
 
   <!-- BHand -->
-  <xacro:bhand prefix="bhand" parent_link="world" xyz="0.0 0.0 1" rpy="0 0 0"/>
+  <xacro:bhand prefix="bhand" parent_link="camera_link" xyz="0.0 0.0 1" rpy="0 0 0"/>
 </robot>
