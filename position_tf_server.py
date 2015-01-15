@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from math import sqrt, pi
+
 import rospy
 from tf2_msgs.msg import TFMessage
 from geometry_msgs.msg import Transform, TransformStamped
@@ -31,9 +33,14 @@ def pose_callback(transform):
     #tf = TransformStamped()
     #robot_pose.child_frame_id = "bhand/bhand_palm_link"
     robot_pose.transform = transform
+
     #robot_pose.header.frame_id = "world"
 
     #pub.publish([robot_pose])
+
+    # rotate robot_pose
+    robot_pose.transform.rotation.x = (robot_pose.transform.rotation.x + sqrt(2)) % 1
+    robot_pose.transform.rotation.w = (robot_pose.transform.rotation.w + sqrt(2)) % 1
 
 
 def listener():
